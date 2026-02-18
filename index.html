@@ -1,11 +1,338 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Multimedia Essay Builder</title>
+<style>
+  :root{--bg:#111;--card:#0f1720;--muted:#9aa4ad;--accent:#8be9fd;color-scheme:dark}
+  html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:#e6f0f0;background:linear-gradient(180deg,#071020,#071a20)}
+  .wrap{max-width:1100px;margin:32px auto;padding:18px}
+  header{display:flex;gap:16px;align-items:center;justify-content:space-between}
+  h1{margin:0;font-size:20px}
+  .grid{display:grid;grid-template-columns:1fr 380px;gap:18px;margin-top:18px}
+  .panel{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+  label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+  input[type="text"], input[type="file"], select{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
+  .preview{height:220px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));overflow:hidden;position:relative}
+  .preview img{width:100%;height:100%;object-fit:cover;filter:contrast(0.95) saturate(0.95)}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  button{background:var(--accent);color:#032027;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+  button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+  .editor{min-height:280px;border-radius:10px;padding:12px;background:rgba(0,0,0,0.25);overflow:auto;border:1px dashed rgba(255,255,255,0.03)}
+  .meta-row{display:flex;gap:8px}
+  .gallery{display:flex;flex-direction:column;gap:12px;max-height:640px;overflow:auto;padding-right:6px}
+  .card{display:flex;gap:10px;align-items:center;padding:8px;border-radius:8px;background:rgba(255,255,255,0.02)}
+  .thumb{width:72px;height:48px;border-radius:6px;background:#081016;overflow:hidden;flex-shrink:0}
+  .thumb img{width:100%;height:100%;object-fit:cover}
+  .meta{flex:1}
+  .meta h4{margin:0;font-size:14px}
+  .meta p{margin:4px 0 0 0;font-size:12px;color:var(--muted)}
+  footer{margin-top:18px;color:var(--muted);font-size:13px}
+  .actions{display:flex;gap:8px}
+  audio{width:100%;margin-top:8px}
+  @media (max-width:900px){.grid{grid-template-columns:1fr;}.preview{height:180px}}
+</style>
 </head>
-
 <body>
-  <p style="color: yellowgreen; font-size: 16px;">
-    Welcome to my webpage!
-  </p>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Multimedia Essay Builder - Cyberpunk Class</h1>
+      <div style="color:var(--muted);font-size:13px">Create, document, and export your multimedia essay (image + audio + text).</div>
+    </div>
+    <div class="actions">
+      <button id="saveBtn">Save to Gallery</button>
+      <button id="exportBtn" class="ghost">Export HTML</button>
+      <button id="clearGallery" class="ghost">Clear Gallery</button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- Left: Editor -->
+    <div class="panel">
+      <label>Title</label>
+      <input id="title" type="text" placeholder="Essay title" />
+
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <div style="flex:1">
+          <label>Author</label>
+          <input id="author" type="text" placeholder="Your name" />
+        </div>
+        <div style="width:160px">
+          <label>Theme / Tag</label>
+          <input id="tag" type="text" placeholder="e.g., cyberpunk, memory" />
+        </div>
+      </div>
+
+      <label style="margin-top:12px">Background Image (upload or drag/drop)</label>
+      <div class="preview" id="bgPreview">No background selected</div>
+      <input id="bgInput" type="file" accept="image/*" style="margin-top:8px" />
+
+      <label style="margin-top:12px">Audio File (mp3, wav)</label>
+      <input id="audioInput" type="file" accept="audio/*" />
+      <audio id="audioPlayer" controls style="display:none"></audio>
+
+      <label style="margin-top:12px">Essay Text (rich text)</label>
+      <div id="editor" class="editor" contenteditable="true" placeholder="Write or paste your essay here. Use formatting and insert inline images if you like."></div>
+
+      <div class="controls">
+        <button id="previewBtn" class="ghost">Preview Fullscreen</button>
+        <button id="downloadJSON" class="ghost">Download JSON</button>
+        <button id="importJSON" class="ghost">Import JSON</button>
+        <input id="jsonFile" type="file" accept=".json" style="display:none" />
+      </div>
+    </div>
+
+    <!-- Right: Gallery -->
+    <aside class="panel">
+      <label>Gallery of Saved Essays</label>
+      <div class="gallery" id="gallery"></div>
+
+      <div style="margin-top:12px">
+        <label>Open Selected Project</label>
+        <div style="display:flex;gap:8px;margin-top:6px">
+          <select id="openSelect" style="flex:1;padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.06)"></select>
+          <button id="openBtn">Open</button>
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <label>Instructions</label>
+        <div style="color:var(--muted);font-size:13px">
+          Students upload a background image and audio, write their essay, then Save to Gallery. They can Export HTML to produce a shareable standalone page.
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    Tip: export an HTML file and submit it to the assignment dropbox. All media remain embedded in the downloaded file.
+  </footer>
+</div>
+
+<script>
+/* Simple client-side multimedia essay builder
+   - Stores projects in localStorage under 'messay_gallery'
+   - Allows saving, previewing, exporting single project as standalone HTML
+   - All media are stored as data: URIs inside saved objects (client-only)
+*/
+
+// helpers
+const $ = id => document.getElementById(id)
+const readFileAsDataURL = file => new Promise((res, rej) => {
+  const r = new FileReader()
+  r.onload = () => res(r.result)
+  r.onerror = () => rej(r.error)
+  r.readAsDataURL(file)
+})
+
+// state
+let currentProject = { title:'', author:'', tag:'', bgData:null, audioData:null, html:'', created:Date.now() }
+
+const loadStateToForm = p => {
+  $('title').value = p.title||''
+  $('author').value = p.author||''
+  $('tag').value = p.tag||''
+  $('editor').innerHTML = p.html||''
+  if (p.bgData) {
+    showBg(p.bgData)
+  } else {
+    $('bgPreview').textContent = 'No background selected'
+    $('bgPreview').style.backgroundImage = ''
+  }
+  if (p.audioData) {
+    $('audioPlayer').src = p.audioData
+    $('audioPlayer').style.display = 'block'
+  } else {
+    $('audioPlayer').style.display = 'none'
+    $('audioPlayer').src = ''
+  }
+  currentProject = {...p}
+}
+
+// UI bindings
+$('bgInput').addEventListener('change', async e => {
+  const f = e.target.files[0]
+  if (!f) return
+  const data = await readFileAsDataURL(f)
+  currentProject.bgData = data
+  showBg(data)
+})
+
+$('audioInput').addEventListener('change', async e => {
+  const f = e.target.files[0]
+  if (!f) return
+  const data = await readFileAsDataURL(f)
+  currentProject.audioData = data
+  $('audioPlayer').src = data
+  $('audioPlayer').style.display = 'block'
+})
+
+function showBg(data) {
+  $('bgPreview').innerHTML = ''
+  $('bgPreview').style.backgroundImage = `url(${data})`
+  const img = document.createElement('img')
+  img.src = data
+  img.alt = 'Background'
+  img.style.opacity = 0.92
+  $('bgPreview').appendChild(img)
+}
+
+// save current form to state
+function syncFromForm() {
+  currentProject.title = $('title').value.trim()
+  currentProject.author = $('author').value.trim()
+  currentProject.tag = $('tag').value.trim()
+  currentProject.html = $('editor').innerHTML
+  currentProject.modified = Date.now()
+}
+
+// gallery storage
+const STORAGE_KEY = 'messay_gallery'
+function readGallery() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+  } catch(e) { return [] }
+}
+function writeGallery(list) { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)) }
+
+// render gallery list
+function renderGallery() {
+  const list = readGallery()
+  const cont = $('gallery')
+  cont.innerHTML = ''
+  const select = $('openSelect')
+  select.innerHTML = ''
+  list.forEach((p, i) => {
+    const card = document.createElement('div'); card.className='card'
+    const thumb = document.createElement('div'); thumb.className='thumb'
+    if (p.bgData) { const im = document.createElement('img'); im.src = p.bgData; thumb.appendChild(im) }
+    const meta = document.createElement('div'); meta.className='meta'
+    const h = document.createElement('h4'); h.textContent = p.title || 'Untitled'
+    const sub = document.createElement('p'); sub.textContent = `${p.author || 'Anonymous'} • ${p.tag || '—'}`
+    meta.appendChild(h); meta.appendChild(sub)
+    const btns = document.createElement('div'); btns.style.display='flex'; btns.style.gap='6px'
+    const open = document.createElement('button'); open.textContent='Open'; open.className='ghost'
+    open.onclick = () => loadStateToForm(p)
+    const del = document.createElement('button'); del.textContent='Delete'; del.className='ghost'
+    del.onclick = () => { if (!confirm('Delete this project?')) return; list.splice(i,1); writeGallery(list); renderGallery() }
+    btns.appendChild(open); btns.appendChild(del)
+    card.appendChild(thumb); card.appendChild(meta); card.appendChild(btns)
+    cont.appendChild(card)
+
+    const opt = document.createElement('option'); opt.value = i; opt.textContent = `${p.title || 'Untitled'} — ${p.author || 'Anonymous'}`
+    select.appendChild(opt)
+  })
+}
+
+// Save current project into gallery
+$('saveBtn').addEventListener('click', () => {
+  syncFromForm()
+  if (!currentProject.title) {
+    if (!confirm('No title provided. Save as "Untitled"?')) return
+    currentProject.title = 'Untitled'
+  }
+  const g = readGallery()
+  currentProject.id = currentProject.id || ('p_' + Math.random().toString(36).slice(2,9))
+  // replace or push
+  const idx = g.findIndex(x=>x.id===currentProject.id)
+  if (idx >= 0) g[idx] = currentProject
+  else g.push(currentProject)
+  writeGallery(g)
+  alert('Saved to local gallery.')
+  renderGallery()
+})
+
+// Export current project as standalone HTML file
+$('exportBtn').addEventListener('click', async () => {
+  syncFromForm()
+  // build a minimal HTML page embedding media as data URIs
+  const safeTitle = (currentProject.title || 'multimedia-essay').replace(/\s+/g,'_')
+  const html = buildStandaloneHTML(currentProject)
+  const blob = new Blob([html], {type:'text/html'})
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a'); a.href = url; a.download = safeTitle + '.html'; document.body.appendChild(a); a.click(); a.remove()
+  URL.revokeObjectURL(url)
+})
+
+// build standalone HTML for export
+function buildStandaloneHTML(p) {
+  const bgStyle = p.bgData ? `background-image:url(${p.bgData});background-size:cover;background-position:center;` : ''
+  const audioTag = p.audioData ? `<audio controls src="${p.audioData}"></audio>` : ''
+  const html = `<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${escapeHtml(p.title||'Multimedia Essay')}</title>
+<style>body{margin:0;font-family:Arial;background:#000;color:#fff} .hero{min-height:60vh;${bgStyle}display:flex;align-items:flex-end;padding:32px;background-color:#000;background-blend-mode:multiply} .card{background:rgba(0,0,0,0.6);padding:18px;border-radius:8px;max-width:900px} audio{width:100%;margin-top:12px} .content{padding:18px;max-width:900px}</style>
+</head><body>
+<div class="hero"><div class="card"><h1>${escapeHtml(p.title||'')}</h1><div>${escapeHtml(p.author||'')}</div></div></div>
+<div class="content">${p.html||''}${audioTag}</div>
+</body></html>`
+  return html
+}
+
+// open selected project from dropdown
+$('openBtn').addEventListener('click', () => {
+  const idx = parseInt($('openSelect').value||0,10)
+  const list = readGallery()
+  if (list[idx]) loadStateToForm(list[idx])
+})
+
+// clear gallery
+$('clearGallery').addEventListener('click', () => {
+  if (!confirm('Clear all saved projects? This cannot be undone.')) return
+  localStorage.removeItem(STORAGE_KEY); renderGallery()
+})
+
+// download JSON of current project
+$('downloadJSON').addEventListener('click', () => {
+  syncFromForm()
+  const blob = new Blob([JSON.stringify(currentProject,null,2)], {type:'application/json'})
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = (currentProject.title||'project') + '.json'; document.body.appendChild(a); a.click(); a.remove()
+})
+
+// import JSON
+$('importJSON').addEventListener('click', () => $('jsonFile').click())
+$('jsonFile').addEventListener('change', async e => {
+  const f = e.target.files[0]; if (!f) return
+  const txt = await f.text()
+  try {
+    const obj = JSON.parse(txt); loadStateToForm(obj); alert('Imported project')
+  } catch(err) { alert('Invalid JSON file') }
+})
+
+// preview fullscreen - simple new window render
+$('previewBtn').addEventListener('click', () => {
+  syncFromForm()
+  const html = buildStandaloneHTML(currentProject)
+  const w = window.open('', '_blank')
+  w.document.open()
+  w.document.write(html)
+  w.document.close()
+})
+
+// support drag-drop to background preview
+const dg = $('bgPreview')
+;['dragenter','dragover','dragleave','drop'].forEach(ev => {
+  dg.addEventListener(ev, e => e.preventDefault())
+})
+dg.addEventListener('drop', async e => {
+  const f = e.dataTransfer.files[0]; if (!f) return
+  if (!f.type.startsWith('image/')) { alert('Please drop an image file'); return }
+  const data = await readFileAsDataURL(f)
+  currentProject.bgData = data; showBg(data)
+})
+
+// helper to escape text for HTML
+function escapeHtml(s=''){ return s.replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])) }
+
+// initialize
+(function init(){
+  renderGallery()
+  // try to load most recent or empty
+  const g = readGallery()
+  if (g.length) { loadStateToForm(g[g.length-1]) }
+})()
+</script>
 </body>
 </html>
