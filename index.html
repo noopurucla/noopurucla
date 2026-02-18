@@ -1,338 +1,101 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Multimedia Essay Builder</title>
-<style>
-  :root{--bg:#111;--card:#0f1720;--muted:#9aa4ad;--accent:#8be9fd;color-scheme:dark}
-  html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:#e6f0f0;background:linear-gradient(180deg,#071020,#071a20)}
-  .wrap{max-width:1100px;margin:32px auto;padding:18px}
-  header{display:flex;gap:16px;align-items:center;justify-content:space-between}
-  h1{margin:0;font-size:20px}
-  .grid{display:grid;grid-template-columns:1fr 380px;gap:18px;margin-top:18px}
-  .panel{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
-  label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
-  input[type="text"], input[type="file"], select{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit}
-  .preview{height:220px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));overflow:hidden;position:relative}
-  .preview img{width:100%;height:100%;object-fit:cover;filter:contrast(0.95) saturate(0.95)}
-  .controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-  button{background:var(--accent);color:#032027;border:0;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
-  button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-  .editor{min-height:280px;border-radius:10px;padding:12px;background:rgba(0,0,0,0.25);overflow:auto;border:1px dashed rgba(255,255,255,0.03)}
-  .meta-row{display:flex;gap:8px}
-  .gallery{display:flex;flex-direction:column;gap:12px;max-height:640px;overflow:auto;padding-right:6px}
-  .card{display:flex;gap:10px;align-items:center;padding:8px;border-radius:8px;background:rgba(255,255,255,0.02)}
-  .thumb{width:72px;height:48px;border-radius:6px;background:#081016;overflow:hidden;flex-shrink:0}
-  .thumb img{width:100%;height:100%;object-fit:cover}
-  .meta{flex:1}
-  .meta h4{margin:0;font-size:14px}
-  .meta p{margin:4px 0 0 0;font-size:12px;color:var(--muted)}
-  footer{margin-top:18px;color:var(--muted);font-size:13px}
-  .actions{display:flex;gap:8px}
-  audio{width:100%;margin-top:8px}
-  @media (max-width:900px){.grid{grid-template-columns:1fr;}.preview{height:180px}}
-</style>
-</head>
-<body>
-<div class="wrap">
-  <header>
-    <div>
-      <h1>Multimedia Essay Builder - Cyberpunk Class</h1>
-      <div style="color:var(--muted);font-size:13px">Create, document, and export your multimedia essay (image + audio + text).</div>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="https://ghostmoor.gay/previewscrn.png" />
+    <meta property="twitter:card" content="summary_large_image">
+    <script src="https://kit.fontawesome.com/e88ce0be22.js" crossorigin="anonymous"> </script>
+    <title>【 DIGITAL GHOST 】</title>
+    <!-- The style.css file allows you to change the look of your web pages.
+         If you include the next line in all your web pages, they will all share the same look.
+         This makes it easier to make new pages for your site. -->
+         <link href="../assets/style-core.css" rel="stylesheet" type="text/css" media="all">
+         <link href="../assets/style-home.css" rel="stylesheet" type="text/css" media="all">
+         <script src="../assets/utility-insert-file.js"></script> 
+  </head>
+  <body>
+    <header w3-include-html="../assets/snippets/navmain.html"></header> 
+  <div class="container">
+    <aside w3-include-html="../assets/snippets/navside.html"></aside>
+    
+  <main>
+  
+    <div class="hphead">
+      <img src="https://ghostmoor.gay/floating%20head.png" width="300">
     </div>
-    <div class="actions">
-      <button id="saveBtn">Save to Gallery</button>
-      <button id="exportBtn" class="ghost">Export HTML</button>
-      <button id="clearGallery" class="ghost">Clear Gallery</button>
+      
+    <div class="About underlay" style="border: 10px;border-style: solid;opacity;border-color: transparent;">
+          <img src="https://ghostmoor.neocities.org/luckytransp.png" height="auto" max-width="100%" style=float:left>
+    <div class=h3 align="right">ABOUT THE ARTIST</div>
+      <div class=h1 align="right">[[ GHOSTMOOR ]] RYAN RADLEY
+      <br>
+      ze/hir/hirs / ve/ver/vis
+      </div>
+      <br>
+    <div class=h3 align="right"><i class="fas fa-transgender-alt"></i> - <i class="fas fa-ghost"></i> - <i class="fas fa-pills"></i></div>
+        
+        <p align="right">RYAN RADLEY aka GHOSTMOOR is a nonbinary artist from the United Kingdom. Ze specialises in character design, comics and colour work and loves rich, expansive worldbuilding. Ve has several original projects in the works as well as creating fanworks for a handful of properties, most notably the Transitverse, an ongoing series set in the NeoScum podcast's iteration of the Shadowrun universe.</p>
+        
+        <p align="right">When ve's not drawing or writing, Ghostmoor enjoys video games like the Oddworld series, getting lost on Bandcamp, and travelling (global disease status permitting). Ze's a big fan of fiction involving grimy dystopias, found family, and fridge horror. Ve can be contacted most reliably via Twitter at @Ghostmoor, but also by email at ryanradleyart at gmail dot com. Ze is periodically available for commission and freelance work.</p>
+        
+        <p align="right">This site is best viewed on desktop, and contains references to and depictions of violence, blood, gore, nudity, and various forms of abuse and trauma.</p>
+        <br>
+        <p align="center"><img src="https://ghostmoor.neocities.org/buttons/antinft.gif"> <img src="https://ghostmoor.neocities.org/buttons/neocities-pink.gif"> <img src="https://ghostmoor.neocities.org/buttons/best%20viewed%20on%20desktop%20but%20its%20a%20phone.gif"> <img src="https://ghostmoor.neocities.org/buttons/up%20all%20night.gif"> <a href="/chillzone.html"><img src="https://ghostmoor.gay/buttons/no.gif"></a> <img src="https://ghostmoor.neocities.org/buttons/msoffice97.gif"> <img src="https://ghostmoor.neocities.org/buttons/graphicdesign.gif">
+      <br>
+        <img src="https://ghostmoor.gay/buttons/f_ckfb.gif"> <img src="https://ghostmoor.neocities.org/buttons/aol%20tos%20violation.gif"> <img src="https://ghostmoor.gay/buttons/acab.gif"> <img src="https://ghostmoor.gay/buttons/legalise%20weed.gif"> <img src="https://ghostmoor.gay/buttons/keep.gif"> <img src="https://ghostmoor.gay/buttons/internetprivacy.gif"> <img src="https://ghostmoor.gay/buttons/firefox2.gif">
+      <br>
+        <img src="https://ghostmoor.gay/buttons/pokemon.gif"> <img src="https://ghostmoor.neocities.org/buttons/diagnosed%20with%20gay.gif"> <img src="https://ghostmoor.gay/buttons/e-scp.gif"> <img src="https://ghostmoor.neocities.org/buttons/right2repair.png"> <img src="https://ghostmoor.gay/buttons/antinazi.gif"></p>
+ 
+  <p align="center">Want to link back to my site? Use this button:</p>
+  <p align="center"><img src="https://ghostmoor.neocities.org/background%20images/affiliate%20button%20animation.gif"></p>
+  
+<div class=h11 align="center">CoOl SitEs</div>
+    <p align="center"><a href="https://cydork.neocities.org/">CYDORK</a></p>
+    <p align="center"><a href="https://atomicgothic.neocities.org/"><img src="https://atomicgothic.neocities.org/atomic%20gothic%20test/gifs/ag_main_button.gif"></a> <a href="https://americasdecline.neocities.org/index.html" target="_blank"><img src="https://i.postimg.cc/RFrypFnS/ad-button-01.png" border="0"></a> <a href="https://jayeaton.neocities.org"><img src="https://jayeaton.neocities.org/btn-jayeaton.png"></a></p>
+                           
     </div>
-  </header>
-
-  <div class="grid">
-    <!-- Left: Editor -->
-    <div class="panel">
-      <label>Title</label>
-      <input id="title" type="text" placeholder="Essay title" />
-
-      <div style="display:flex;gap:8px;margin-top:8px;">
-        <div style="flex:1">
-          <label>Author</label>
-          <input id="author" type="text" placeholder="Your name" />
-        </div>
-        <div style="width:160px">
-          <label>Theme / Tag</label>
-          <input id="tag" type="text" placeholder="e.g., cyberpunk, memory" />
-        </div>
-      </div>
-
-      <label style="margin-top:12px">Background Image (upload or drag/drop)</label>
-      <div class="preview" id="bgPreview">No background selected</div>
-      <input id="bgInput" type="file" accept="image/*" style="margin-top:8px" />
-
-      <label style="margin-top:12px">Audio File (mp3, wav)</label>
-      <input id="audioInput" type="file" accept="audio/*" />
-      <audio id="audioPlayer" controls style="display:none"></audio>
-
-      <label style="margin-top:12px">Essay Text (rich text)</label>
-      <div id="editor" class="editor" contenteditable="true" placeholder="Write or paste your essay here. Use formatting and insert inline images if you like."></div>
-
-      <div class="controls">
-        <button id="previewBtn" class="ghost">Preview Fullscreen</button>
-        <button id="downloadJSON" class="ghost">Download JSON</button>
-        <button id="importJSON" class="ghost">Import JSON</button>
-        <input id="jsonFile" type="file" accept=".json" style="display:none" />
-      </div>
+  
+    <div class="Subpost1 underlay" style="border: 10px;border-style: solid;opacity;border-color: transparent;margin-top:2%;">
+      <div class="h5" align="center">sItE UPdATES</div>
+      <p align="center">07/11/2023 - Minor housekeeping in preparation for SERAPHIM DRIVE REISSUE coming 10/11/23!
+	  <br>07/10/2023 - TOTAL SITE REWRITE (thanks Pteryx). Image resizing and further page content pending... tell me if anything is busted. :-)
+	  <br>05/03/2023 - updates to <a href="/scumverse/lit">general gallery</a>, <a href="/wfo-gallery/wfo">work for others</a> and <a href="/scumverse/lit">transitverse</a> galleries. New music on index page, & swapped video section for recent work section.
+      <br>17/11/2022 - run diagnostics (Lost In Transit) updated with part 2
+      <br>06/10/2022 - Finished updating the homepage, merged all gallery links into a single page, added content to secret page
+      <br>29/09/2022 - New dedicated blog section! Reworked home page to be a hub for site updates and media stuff. WIP, as ever.</p>
     </div>
+    
+  <section class="flexbox desktoprow">
+    <div class="Subpost2 underlay" style="border: 10px;border-style: solid;opacity;border-color: transparent; margin-top:2%;">
+      <div class="h5" align="center">Recent Work</div>
+      <p align="center"><img class="rounded" src="https://ghostmoor.gay/scumverse/lit/gallery/rabbit%20hearted.png"></p>
+    </div>
+    
+    
+    <div class="Subpost3 underlay" style="border: 10px;border-style: solid;opacity;border-color: transparent;margin-top:2%;">
+      <div class="h5" align="center">lISteNInG To...</div>
+      <p align="center">
+      <iframe style="border: 0; width: 350px; height: 470px;" src="https://bandcamp.com/EmbeddedPlayer/album=583980142/size=large/bgcol=333333/linkcol=fe7eaf/tracklist=false/track=2696696360/transparent=true/" seamless><a href="https://fvksc.bandcamp.com/album/something-terminal">Something Terminal by Fearless Vampire Killers</a></iframe>
+      </p>
+    </div>
+  </section>
 
-    <!-- Right: Gallery -->
-    <aside class="panel">
-      <label>Gallery of Saved Essays</label>
-      <div class="gallery" id="gallery"></div>
-
-      <div style="margin-top:12px">
-        <label>Open Selected Project</label>
-        <div style="display:flex;gap:8px;margin-top:6px">
-          <select id="openSelect" style="flex:1;padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.06)"></select>
-          <button id="openBtn">Open</button>
-        </div>
-      </div>
-
-      <div style="margin-top:12px">
-        <label>Instructions</label>
-        <div style="color:var(--muted);font-size:13px">
-          Students upload a background image and audio, write their essay, then Save to Gallery. They can Export HTML to produce a shareable standalone page.
-        </div>
-      </div>
-    </aside>
+    <div class="hidedesktop">
+      <img src="https://ghostmoor.gay/floating%20rae.png" width="300">
   </div>
 
-  <footer>
-    Tip: export an HTML file and submit it to the assignment dropbox. All media remain embedded in the downloaded file.
-  </footer>
-</div>
+  <footer id="footer" w3-include-html="../assets/snippets/footer-generic.html"></footer>
 
-<script>
-/* Simple client-side multimedia essay builder
-   - Stores projects in localStorage under 'messay_gallery'
-   - Allows saving, previewing, exporting single project as standalone HTML
-   - All media are stored as data: URIs inside saved objects (client-only)
-*/
 
-// helpers
-const $ = id => document.getElementById(id)
-const readFileAsDataURL = file => new Promise((res, rej) => {
-  const r = new FileReader()
-  r.onload = () => res(r.result)
-  r.onerror = () => rej(r.error)
-  r.readAsDataURL(file)
-})
-
-// state
-let currentProject = { title:'', author:'', tag:'', bgData:null, audioData:null, html:'', created:Date.now() }
-
-const loadStateToForm = p => {
-  $('title').value = p.title||''
-  $('author').value = p.author||''
-  $('tag').value = p.tag||''
-  $('editor').innerHTML = p.html||''
-  if (p.bgData) {
-    showBg(p.bgData)
-  } else {
-    $('bgPreview').textContent = 'No background selected'
-    $('bgPreview').style.backgroundImage = ''
-  }
-  if (p.audioData) {
-    $('audioPlayer').src = p.audioData
-    $('audioPlayer').style.display = 'block'
-  } else {
-    $('audioPlayer').style.display = 'none'
-    $('audioPlayer').src = ''
-  }
-  currentProject = {...p}
-}
-
-// UI bindings
-$('bgInput').addEventListener('change', async e => {
-  const f = e.target.files[0]
-  if (!f) return
-  const data = await readFileAsDataURL(f)
-  currentProject.bgData = data
-  showBg(data)
-})
-
-$('audioInput').addEventListener('change', async e => {
-  const f = e.target.files[0]
-  if (!f) return
-  const data = await readFileAsDataURL(f)
-  currentProject.audioData = data
-  $('audioPlayer').src = data
-  $('audioPlayer').style.display = 'block'
-})
-
-function showBg(data) {
-  $('bgPreview').innerHTML = ''
-  $('bgPreview').style.backgroundImage = `url(${data})`
-  const img = document.createElement('img')
-  img.src = data
-  img.alt = 'Background'
-  img.style.opacity = 0.92
-  $('bgPreview').appendChild(img)
-}
-
-// save current form to state
-function syncFromForm() {
-  currentProject.title = $('title').value.trim()
-  currentProject.author = $('author').value.trim()
-  currentProject.tag = $('tag').value.trim()
-  currentProject.html = $('editor').innerHTML
-  currentProject.modified = Date.now()
-}
-
-// gallery storage
-const STORAGE_KEY = 'messay_gallery'
-function readGallery() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
-  } catch(e) { return [] }
-}
-function writeGallery(list) { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)) }
-
-// render gallery list
-function renderGallery() {
-  const list = readGallery()
-  const cont = $('gallery')
-  cont.innerHTML = ''
-  const select = $('openSelect')
-  select.innerHTML = ''
-  list.forEach((p, i) => {
-    const card = document.createElement('div'); card.className='card'
-    const thumb = document.createElement('div'); thumb.className='thumb'
-    if (p.bgData) { const im = document.createElement('img'); im.src = p.bgData; thumb.appendChild(im) }
-    const meta = document.createElement('div'); meta.className='meta'
-    const h = document.createElement('h4'); h.textContent = p.title || 'Untitled'
-    const sub = document.createElement('p'); sub.textContent = `${p.author || 'Anonymous'} • ${p.tag || '—'}`
-    meta.appendChild(h); meta.appendChild(sub)
-    const btns = document.createElement('div'); btns.style.display='flex'; btns.style.gap='6px'
-    const open = document.createElement('button'); open.textContent='Open'; open.className='ghost'
-    open.onclick = () => loadStateToForm(p)
-    const del = document.createElement('button'); del.textContent='Delete'; del.className='ghost'
-    del.onclick = () => { if (!confirm('Delete this project?')) return; list.splice(i,1); writeGallery(list); renderGallery() }
-    btns.appendChild(open); btns.appendChild(del)
-    card.appendChild(thumb); card.appendChild(meta); card.appendChild(btns)
-    cont.appendChild(card)
-
-    const opt = document.createElement('option'); opt.value = i; opt.textContent = `${p.title || 'Untitled'} — ${p.author || 'Anonymous'}`
-    select.appendChild(opt)
-  })
-}
-
-// Save current project into gallery
-$('saveBtn').addEventListener('click', () => {
-  syncFromForm()
-  if (!currentProject.title) {
-    if (!confirm('No title provided. Save as "Untitled"?')) return
-    currentProject.title = 'Untitled'
-  }
-  const g = readGallery()
-  currentProject.id = currentProject.id || ('p_' + Math.random().toString(36).slice(2,9))
-  // replace or push
-  const idx = g.findIndex(x=>x.id===currentProject.id)
-  if (idx >= 0) g[idx] = currentProject
-  else g.push(currentProject)
-  writeGallery(g)
-  alert('Saved to local gallery.')
-  renderGallery()
-})
-
-// Export current project as standalone HTML file
-$('exportBtn').addEventListener('click', async () => {
-  syncFromForm()
-  // build a minimal HTML page embedding media as data URIs
-  const safeTitle = (currentProject.title || 'multimedia-essay').replace(/\s+/g,'_')
-  const html = buildStandaloneHTML(currentProject)
-  const blob = new Blob([html], {type:'text/html'})
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a'); a.href = url; a.download = safeTitle + '.html'; document.body.appendChild(a); a.click(); a.remove()
-  URL.revokeObjectURL(url)
-})
-
-// build standalone HTML for export
-function buildStandaloneHTML(p) {
-  const bgStyle = p.bgData ? `background-image:url(${p.bgData});background-size:cover;background-position:center;` : ''
-  const audioTag = p.audioData ? `<audio controls src="${p.audioData}"></audio>` : ''
-  const html = `<!doctype html>
-<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${escapeHtml(p.title||'Multimedia Essay')}</title>
-<style>body{margin:0;font-family:Arial;background:#000;color:#fff} .hero{min-height:60vh;${bgStyle}display:flex;align-items:flex-end;padding:32px;background-color:#000;background-blend-mode:multiply} .card{background:rgba(0,0,0,0.6);padding:18px;border-radius:8px;max-width:900px} audio{width:100%;margin-top:12px} .content{padding:18px;max-width:900px}</style>
-</head><body>
-<div class="hero"><div class="card"><h1>${escapeHtml(p.title||'')}</h1><div>${escapeHtml(p.author||'')}</div></div></div>
-<div class="content">${p.html||''}${audioTag}</div>
-</body></html>`
-  return html
-}
-
-// open selected project from dropdown
-$('openBtn').addEventListener('click', () => {
-  const idx = parseInt($('openSelect').value||0,10)
-  const list = readGallery()
-  if (list[idx]) loadStateToForm(list[idx])
-})
-
-// clear gallery
-$('clearGallery').addEventListener('click', () => {
-  if (!confirm('Clear all saved projects? This cannot be undone.')) return
-  localStorage.removeItem(STORAGE_KEY); renderGallery()
-})
-
-// download JSON of current project
-$('downloadJSON').addEventListener('click', () => {
-  syncFromForm()
-  const blob = new Blob([JSON.stringify(currentProject,null,2)], {type:'application/json'})
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = (currentProject.title||'project') + '.json'; document.body.appendChild(a); a.click(); a.remove()
-})
-
-// import JSON
-$('importJSON').addEventListener('click', () => $('jsonFile').click())
-$('jsonFile').addEventListener('change', async e => {
-  const f = e.target.files[0]; if (!f) return
-  const txt = await f.text()
-  try {
-    const obj = JSON.parse(txt); loadStateToForm(obj); alert('Imported project')
-  } catch(err) { alert('Invalid JSON file') }
-})
-
-// preview fullscreen - simple new window render
-$('previewBtn').addEventListener('click', () => {
-  syncFromForm()
-  const html = buildStandaloneHTML(currentProject)
-  const w = window.open('', '_blank')
-  w.document.open()
-  w.document.write(html)
-  w.document.close()
-})
-
-// support drag-drop to background preview
-const dg = $('bgPreview')
-;['dragenter','dragover','dragleave','drop'].forEach(ev => {
-  dg.addEventListener(ev, e => e.preventDefault())
-})
-dg.addEventListener('drop', async e => {
-  const f = e.dataTransfer.files[0]; if (!f) return
-  if (!f.type.startsWith('image/')) { alert('Please drop an image file'); return }
-  const data = await readFileAsDataURL(f)
-  currentProject.bgData = data; showBg(data)
-})
-
-// helper to escape text for HTML
-function escapeHtml(s=''){ return s.replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])) }
-
-// initialize
-(function init(){
-  renderGallery()
-  // try to load most recent or empty
-  const g = readGallery()
-  if (g.length) { loadStateToForm(g[g.length-1]) }
-})()
-</script>
-</body>
+  </main>
+  <div class="hprae hidemobile">
+    <img src="https://ghostmoor.gay/floating%20rae.png" width="300">
+  </div>
+  </div>
+  <script>
+    includeHTML();
+</script> 
+  </body>
 </html>
